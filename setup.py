@@ -32,7 +32,7 @@ history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 setup(
     name='simple_user',
-    version="version='0.2.0'",
+    version='0.1.1',
     description="""Simple reusable user storing only uuid and manage JWT Token auth_uuidentication in remote""",
     long_description=readme + '\n\n' + history,
     author='Tomas Garzon',
