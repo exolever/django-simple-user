@@ -15,8 +15,8 @@ class SimpleUserManager(UserManager):
         return user
 
     def retrieve_remote_user_by_uuid(self, uuid):
-        logger = logging.getLogger(settings.AUTH_LOGGER_NAME)
-        url = settings.AUTH_URL_VALIDATE_USER_UUID
+        logger = logging.getLogger(settings.LOGGER_NAME)
+        url = settings.URL_VALIDATE_USER_UUID
         response = None
         try:
             response = requests.get(url)
