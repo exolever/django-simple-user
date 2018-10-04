@@ -15,5 +15,5 @@ Contents:
    installation
    usage
    contributing
-   auth_uuidors
+   authors
    history

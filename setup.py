@@ -49,9 +49,9 @@ setup(
     version=version,
     description="""Simple reusable user storing only uuid and manage JWT Token auth_uuidentication in remote""",
     long_description=readme + '\n\n' + history,
-    auth_uuidor='Tomas Garzon',
-    auth_uuidor_email='tomasgarzonhervas@gmail.com',
-    url='https://github.com/tomasgarzon/simple_user',
+    author='Tomas Garzon',
+    author_email='tomasgarzonhervas@gmail.com',
+    url='https://github.com/exolever/django-simple-user',
     packages=[
         'auth_uuid',
     ],

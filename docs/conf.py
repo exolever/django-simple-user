@@ -82,9 +82,9 @@ exclude_patterns = ['_build']
 # unit titles (such as .. function::).
 #add_module_names = True
 
-# If true, sectionauth_uuidor and moduleauth_uuidor directives will be shown in the
+# If true, sectionauthor and moduleauthor directives will be shown in the
 # output. They are ignored by default.
-#show_auth_uuidors = False
+#show_authors = False
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -190,7 +190,7 @@ latex_elements = {
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
-# (source start file, target name, title, auth_uuidor, documentclass [howto/manual]).
+# (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'simple_user.tex', u'django-simple-user Documentation',
    u'Tomas Garzon', 'manual'),
@@ -220,7 +220,7 @@ latex_documents = [
 # -- Options for manual page output --------------------------------------------
 
 # One entry per manual page. List of tuples
-# (source start file, name, description, auth_uuidors, manual section).
+# (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'simple_user', u'django-simple-user Documentation',
      [u'Tomas Garzon'], 1)
@@ -233,7 +233,7 @@ man_pages = [
 # -- Options for Texinfo output ------------------------------------------------
 
 # Grouping the document tree into Texinfo files. List of tuples
-# (source start file, target name, title, auth_uuidor,
+# (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'simple_user', u'django-simple-user Documentation',
