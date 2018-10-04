@@ -10,20 +10,6 @@ except ImportError:
     from distutils.core import setup
 
 
-def get_version(*file_paths):
-    """Retrieves the version from auth_uuid/__init__.py"""
-    filename = os.path.join(os.path.dirname(__file__), *file_paths)
-    version_file = open(filename).read()
-    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]",
-                              version_file, re.M)
-    if version_match:
-        return version_match.group(1)
-    raise RuntimeError('Unable to find version string.')
-
-
-version = get_version("auth_uuid", "__init__.py")
-
-
 if sys.argv[-1] == 'publish':
     try:
         import wheel
@@ -46,7 +32,7 @@ history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 setup(
     name='simple_user',
-    version=version,
+    version="version='0.2.0'",
     description="""Simple reusable user storing only uuid and manage JWT Token auth_uuidentication in remote""",
     long_description=readme + '\n\n' + history,
     author='Tomas Garzon',
