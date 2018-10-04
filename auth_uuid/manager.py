@@ -4,6 +4,8 @@ import logging
 from django.contrib.auth.models import UserManager
 from django.conf import settings
 
+from auth_uuid import settings as app_settings
+
 
 class SimpleUserManager(UserManager):
 
@@ -15,8 +17,8 @@ class SimpleUserManager(UserManager):
         return user
 
     def retrieve_remote_user_by_uuid(self, uuid):
-        logger = logging.getLogger(settings.LOGGER_NAME)
-        url = settings.URL_VALIDATE_USER_UUID
+        logger = logging.getLogger(app_settings.LOGGER_NAME)
+        url = settings.URL_VALIDATE_USER_UUID.format(uuid)
         response = None
         try:
             response = requests.get(url)

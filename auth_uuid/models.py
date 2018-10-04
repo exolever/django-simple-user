@@ -5,6 +5,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
+from . import settings  # noqa
 from .manager import SimpleUserManager
 
 
