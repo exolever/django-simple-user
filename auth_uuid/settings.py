@@ -10,7 +10,8 @@ JWT_ALGORITHM = 'HS256'
 
 JWT_AUTH = {
     'JWT_DECODE_HANDLER': 'auth_uuid.helper_jwt.jwt_decode_handler',
-    'JWT_PAYLOAD_GET_USERNAME_HANDLER': 'auth_uuid.helper_jwt.jwt_get_username_from_payload_handler'
+    'JWT_PAYLOAD_GET_USERNAME_HANDLER': 'auth_uuid.helper_jwt.jwt_get_username_from_payload_handler',
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
 
 JWT_SECRET_KEY = getattr(settings, 'JWT_SECRET_KEY', '')
