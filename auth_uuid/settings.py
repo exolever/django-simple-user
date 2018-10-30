@@ -17,8 +17,9 @@ JWT_AUTH = {
 JWT_SECRET_KEY = getattr(settings, 'JWT_SECRET_KEY', '')
 URL_VALIDATE_USER_UUID = getattr(settings, 'URL_VALIDATE_USER_UUID', '')
 
+URL_VALIDATE_USER_COOKIE = getattr(settings, 'URL_VALIDATE_USER_COOKIE', '')
+
 LOGGER_NAME = 'auth_uuid'
 
-if not JWT_SECRET_KEY or not URL_VALIDATE_USER_UUID:
-    raise ImproperlyConfigured("JWT_SECRET_KEY and URL_VALIDATE_USER_UUID are required")
 settings.JWT_AUTH = JWT_AUTH
+

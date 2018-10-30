@@ -31,3 +31,30 @@ class SimpleUserManager(UserManager):
             user = self.create(uuid=response.json().get('uuid'))
             return user
         return None
+
+    def retrieve_remote_user_by_cookie(self, cookies):
+        logger = logging.getLogger(app_settings.LOGGER_NAME)
+        url = settings.URL_VALIDATE_USER_COOKIE
+        response = None
+        try:
+            response = requests.get(url, cookies=cookies)
+        except Exception as err:
+            message = 'requests.Exception: {}'.format(err)
+            logger.error(message)
+            response = None
+
+        if response and response.status_code == requests.codes.ok:
+            try:
+                data = response.json()[0]
+            except IndexError:
+                return None
+            user, _ = self.update_or_create(
+                uuid=data.get('uuid'),
+                defaults={
+                    'is_active': data.get('is_active'),
+                    'is_superuser': data.get('is_superuser'),
+                    'is_staff': data.get('is_staff'),
+                }
+            )
+            return user
+        return None
