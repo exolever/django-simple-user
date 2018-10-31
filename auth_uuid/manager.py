@@ -3,6 +3,7 @@ import logging
 
 from django.contrib.auth.models import UserManager
 from django.conf import settings
+from django.contrib.auth.models import AnonymousUser
 
 from auth_uuid import settings as app_settings
 
@@ -30,7 +31,7 @@ class SimpleUserManager(UserManager):
         if response and response.status_code == requests.codes.ok:
             user = self.create(uuid=response.json().get('uuid'))
             return user
-        return None
+        return AnonymousUser()
 
     def retrieve_remote_user_by_cookie(self, cookies):
         logger = logging.getLogger(app_settings.LOGGER_NAME)
@@ -47,7 +48,7 @@ class SimpleUserManager(UserManager):
             try:
                 data = response.json()[0]
             except IndexError:
-                return None
+                return AnonymousUser()
             user, _ = self.update_or_create(
                 uuid=data.get('uuid'),
                 defaults={
