@@ -58,4 +58,4 @@ class SimpleUserManager(UserManager):
                 }
             )
             return user
-        return None
+        return AnonymousUser()
