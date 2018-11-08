@@ -17,7 +17,7 @@ class SimpleUserManager(UserManager):
             user = self.retrieve_remote_user_by_uuid(username)
         return user
 
-    def retrieve_remote_user_by_uuid(self, uuid):
+    def retrieve_remove_user_data_by_uuid(self, uuid):
         logger = logging.getLogger(app_settings.LOGGER_NAME)
         url = settings.URL_VALIDATE_USER_UUID.format(uuid)
         response = None
@@ -29,11 +29,17 @@ class SimpleUserManager(UserManager):
             response = None
 
         if response and response.status_code == requests.codes.ok:
-            user = self.create(uuid=response.json().get('uuid'))
+            return response.json()
+        return None
+
+    def retrieve_remote_user_by_uuid(self, uuid):
+        response = self.retrieve_remove_user_data_by_uuid(uuid)
+        if response is not None:
+            user = self.create(uuid=response.get('uuid'))
             return user
         return AnonymousUser()
 
-    def retrieve_remote_user_by_cookie(self, cookies):
+    def retrieve_remove_user_data_by_cookies(self, cookies):
         logger = logging.getLogger(app_settings.LOGGER_NAME)
         url = settings.URL_VALIDATE_USER_COOKIE
         response = None
@@ -46,15 +52,20 @@ class SimpleUserManager(UserManager):
 
         if response and response.status_code == requests.codes.ok:
             try:
-                data = response.json()[0]
+                return response.json()[0]
             except IndexError:
-                return AnonymousUser()
+                return None
+        return None
+
+    def retrieve_remote_user_by_cookie(self, cookies):
+        response = self.retrieve_remove_user_data_by_cookies(cookies)
+        if response is not None:
             user, _ = self.update_or_create(
-                uuid=data.get('uuid'),
+                uuid=response.get('uuid'),
                 defaults={
-                    'is_active': data.get('is_active'),
-                    'is_superuser': data.get('is_superuser'),
-                    'is_staff': data.get('is_staff'),
+                    'is_active': response.get('is_active'),
+                    'is_superuser': response.get('is_superuser'),
+                    'is_staff': response.get('is_staff'),
                 }
             )
             return user
