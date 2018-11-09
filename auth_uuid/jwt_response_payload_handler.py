@@ -8,6 +8,6 @@ def jwt_response_payload_handler(token, user=None, request=None):
         'token': token,
         'user': {
             'id': user.pk,
-            'uuid': user.uuid,
+            'uuid': str(user.uuid),
         },
     }
