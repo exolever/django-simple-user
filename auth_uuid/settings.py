@@ -15,6 +15,7 @@ JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER':
         'auth_uuid.jwt_response_payload_handler.jwt_response_payload_handler',
     'JWT_PAYLOAD_HANDLER': 'auth_uuid.jwt_payload_handler.jwt_payload_handler',
+    'JWT_SECRET_KEY': getattr(settings, 'JWT_SECRET_KEY', ''),
 }
 
 JWT_SECRET_KEY = getattr(settings, 'JWT_SECRET_KEY', '')
