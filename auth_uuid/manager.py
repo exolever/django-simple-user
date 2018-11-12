@@ -58,6 +58,8 @@ class SimpleUserManager(UserManager):
         return None
 
     def retrieve_remote_user_by_cookie(self, cookies):
+        if cookies == {}:
+            return AnonymousUser()
         response = self.retrieve_remove_user_data_by_cookies(cookies)
         if response is not None:
             user, _ = self.update_or_create(
