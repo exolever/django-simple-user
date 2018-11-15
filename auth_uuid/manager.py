@@ -22,7 +22,9 @@ class SimpleUserManager(UserManager):
         url = settings.URL_VALIDATE_USER_UUID.format(uuid)
         response = None
         try:
-            response = requests.get(url)
+            response = requests.get(
+                url,
+                headers={'X_USERNAME': settings.AUTH_SECRET_KEY})
         except Exception as err:
             message = 'requests.Exception: {}'.format(err)
             logger.error(message)
