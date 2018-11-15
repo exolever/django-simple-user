@@ -24,7 +24,7 @@ class SimpleUserManager(UserManager):
         try:
             response = requests.get(
                 url,
-                headers={'X_USERNAME': settings.AUTH_SECRET_KEY})
+                headers={'USERNAME': settings.AUTH_SECRET_KEY})
         except Exception as err:
             message = 'requests.Exception: {}'.format(err)
             logger.error(message)
