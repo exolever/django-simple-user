@@ -17,6 +17,16 @@ class SimpleUserManager(UserManager):
             user = self.retrieve_remote_user_by_uuid(username)
         return user
 
+    def create_new_user(self, response):
+        return self.update_or_create(
+            uuid=response.get('uuid'),
+            defaults={
+                'is_active': response.get('is_active'),
+                'is_superuser': response.get('is_superuser'),
+                'is_staff': response.get('is_staff'),
+            }
+        )
+
     def retrieve_remove_user_data_by_uuid(self, uuid):
         logger = logging.getLogger(app_settings.LOGGER_NAME)
         url = settings.URL_VALIDATE_USER_UUID.format(uuid)
@@ -37,7 +47,7 @@ class SimpleUserManager(UserManager):
     def retrieve_remote_user_by_uuid(self, uuid):
         response = self.retrieve_remove_user_data_by_uuid(uuid)
         if response is not None:
-            user = self.create(uuid=response.get('uuid'))
+            user, _ = self.create_new_user(response)
             return user
         return AnonymousUser()
 
@@ -64,13 +74,6 @@ class SimpleUserManager(UserManager):
             return AnonymousUser()
         response = self.retrieve_remove_user_data_by_cookies(cookies)
         if response is not None:
-            user, _ = self.update_or_create(
-                uuid=response.get('uuid'),
-                defaults={
-                    'is_active': response.get('is_active'),
-                    'is_superuser': response.get('is_superuser'),
-                    'is_staff': response.get('is_staff'),
-                }
-            )
+            user, _ = self.create_new_user(response)
             return user
         return AnonymousUser()
