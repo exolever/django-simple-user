@@ -28,6 +28,16 @@ class SimpleUserManager(UserManager):
         )
 
     def retrieve_remove_user_data_by_uuid(self, uuid):
+        import warnings
+        warnings.simplefilter('always', DeprecationWarning)
+        warnings.warn(
+            'This method "retrieve_remove_user_data_by_uuid" is deprecated use \
+"retrieve_remote_user_data_by_uuid" instead.',
+            DeprecationWarning
+        )
+        return self.retrieve_remote_user_data_by_uuid(uuid)
+
+    def retrieve_remote_user_data_by_uuid(self, uuid):
         logger = logging.getLogger(app_settings.LOGGER_NAME)
         url = settings.URL_VALIDATE_USER_UUID.format(uuid)
         response = None
@@ -44,12 +54,17 @@ class SimpleUserManager(UserManager):
             return response.json()
         return None
 
-    def retrieve_remote_user_by_uuid(self, uuid):
-        response = self.retrieve_remove_user_data_by_uuid(uuid)
+    def retrieve_remote_user_by_uuid(self, uuid, retrieve_response=False):
+        user = AnonymousUser()
+        response = self.retrieve_remote_user_data_by_uuid(uuid)
+
         if response is not None:
             user, _ = self.create_new_user(response)
+
+        if retrieve_response:
+            return user, response
+        else:
             return user
-        return AnonymousUser()
 
     def retrieve_remove_user_data_by_cookies(self, cookies):
         logger = logging.getLogger(app_settings.LOGGER_NAME)
