@@ -21,9 +21,9 @@ class SimpleUserManager(UserManager):
         return self.update_or_create(
             uuid=response.get('uuid'),
             defaults={
-                'is_active': response.get('is_active'),
-                'is_superuser': response.get('is_superuser'),
-                'is_staff': response.get('is_staff'),
+                'is_active': response.get('isActive'),
+                'is_superuser': response.get('isSuperuser'),
+                'is_staff': response.get('isStaff'),
             }
         )
 
