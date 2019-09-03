@@ -16,8 +16,10 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from auth_uuid import urls as auth_uuid_urls
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', include('auth.urls', namespace='auth_uuid')),
+    url(r'', include('auth_uuid_urls', namespace='auth_uuid')),
 ]
