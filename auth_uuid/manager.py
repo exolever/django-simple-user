@@ -18,12 +18,13 @@ class SimpleUserManager(UserManager):
         return user
 
     def create_new_user(self, response):
+        # In order to keep backward compatibility: firstly camelcase, otherwise underscore
         return self.update_or_create(
             uuid=response.get('uuid'),
             defaults={
-                'is_active': response.get('isActive'),
-                'is_superuser': response.get('isSuperuser'),
-                'is_staff': response.get('isStaff'),
+                'is_active': response.get('isActive', response.get('is_active')),
+                'is_superuser': response.get('isSuperuser', response.get('is_superuser')),
+                'is_staff': response.get('isStaff', response.get('is_staff')),
             }
         )
 
