@@ -19,7 +19,7 @@ DATABASES = {
 ROOT_URLCONF = "tests.urls"
 
 INSTALLED_APPS = [
-    "django.contrib.auth_uuid",
+    "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sites",
     "auth_uuid",
