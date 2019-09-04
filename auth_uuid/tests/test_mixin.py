@@ -2,61 +2,10 @@ import re
 
 from django.conf import settings
 
-from auth_uuid.jwt_helpers import _build_jwt
-
 from .faker_factory import faker
-from .faker_user_factory import FakeUserFactory
 
 
-class AccountTestMixin:
-
-    def setUp(self):
-        super().setUp()
-        self.create_super_user()
-        self.create_user()
-        self.init_account_mock()
-
-    def create_user(self, password=None):
-        password = password or '123456'
-        self.user = FakeUserFactory.create(
-            is_superuser=False,
-            is_active=True,
-            password=password)
-        return self.user
-
-    def create_super_user(self, password=None):
-        password = password or '123456'
-        self.super_user = FakeUserFactory.create(
-            is_superuser=True,
-            is_active=True,
-            password=password)
-        return self.super_user
-
-    def get_user(self, password=None):
-        password = password or '123456'
-        user = FakeUserFactory.create(
-            is_superuser=False,
-            is_active=True,
-            password=password
-        )
-        return user
-
-    def init_account_mock(self, mock):
-        matcher = re.compile('{}/api/accounts/me/'.format(settings.EXOLEVER_HOST))
-        mock.register_uri(
-            'GET',
-            matcher,
-            json=mock_callback)
-
-    def setup_credentials(self, user):
-        token = _build_jwt(user)
-        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
-
-    def reset_credentials(self):
-        self.client.credentials()
-
-
-class AccountRequestMock:
+class RequestMockAccount:
 
     def __init__(self):
         self._requests = {}
@@ -95,10 +44,3 @@ class AccountRequestMock:
             str(user.uuid),
             response=response)
 
-
-account_request_mock = AccountRequestMock()
-
-
-def mock_callback(request, context):
-    uuid = request.path.split('/')[-2]
-    return account_request_mock.get_request(uuid)

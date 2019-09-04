@@ -3,5 +3,4 @@ django-model-utils>=2.0
 django-appconf==1.0.2
 requests
 stringcase
-factory-boy
 fake-factory

@@ -32,7 +32,6 @@ class UserWrapper:
     def is_consultant(self):
         return self.consultant_id is not None
 
-    @property
     def get_full_name(self):
         return self.full_name if self.full_name else self.short_name
 
