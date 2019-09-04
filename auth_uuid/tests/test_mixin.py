@@ -46,10 +46,6 @@ class AccountTestMixin:
             'GET',
             matcher,
             json=mock_callback)
-        mock.register_uri(
-            'GET',
-            settings.METRIC_URL + '/email/',
-            json={'url': 'https://www.google-analytics.com/collect?v=1'})
 
     def setup_credentials(self, user):
         token = _build_jwt(user)
