@@ -1,1 +1,0 @@
-EXOLEVER_HOST = os.environ.get('EXOLEVER_HOST', 'http://backend')

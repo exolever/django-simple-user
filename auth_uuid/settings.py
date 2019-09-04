@@ -1,7 +1,5 @@
 from django.conf import settings
 
-from .local import *  # noqa
-
 JWT_VERIFY_EXPIRATION = False
 JWT_VERIFY = True
 JWT_LEEWAY = 0
