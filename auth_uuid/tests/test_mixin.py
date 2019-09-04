@@ -14,6 +14,7 @@ class AccountTestMixin:
         super().setUp()
         self.create_super_user()
         self.create_user()
+        self.init_account_mock()
 
     def create_user(self, password=None):
         password = password or '123456'
@@ -40,7 +41,7 @@ class AccountTestMixin:
         )
         return user
 
-    def init_mock(self, mock):
+    def init_account_mock(self, mock):
         matcher = re.compile('{}/api/accounts/me/'.format(settings.EXOLEVER_HOST))
         mock.register_uri(
             'GET',
@@ -53,9 +54,6 @@ class AccountTestMixin:
 
     def reset_credentials(self):
         self.client.credentials()
-
-    def setup_username_credentials(self):
-        self.client.credentials(HTTP_USERNAME=settings.AUTH_SECRET_KEY)
 
 
 class AccountRequestMock:
