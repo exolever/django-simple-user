@@ -54,6 +54,9 @@ class AccountTestMixin:
     def reset_credentials(self):
         self.client.credentials()
 
+    def setup_username_credentials(self):
+        self.client.credentials(HTTP_USERNAME=settings.AUTH_SECRET_KEY)
+
 
 class AccountRequestMock:
 

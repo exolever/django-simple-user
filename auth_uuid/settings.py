@@ -1,5 +1,7 @@
 from django.conf import settings
 
+from .local import *  # noqa
+
 JWT_VERIFY_EXPIRATION = False
 JWT_VERIFY = True
 JWT_LEEWAY = 0
@@ -26,3 +28,5 @@ URL_VALIDATE_USER_COOKIE = getattr(settings, 'URL_VALIDATE_USER_COOKIE', '')
 LOGGER_NAME = 'auth_uuid'
 
 settings.JWT_AUTH = JWT_AUTH
+
+AUTH_SECRET_KEY = '8qtvvoj6_n^y9o%*cb(zv2sio-1ti*$$h8cvm%3+jx8-a9pi!5'
