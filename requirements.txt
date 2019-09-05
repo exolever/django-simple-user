@@ -2,3 +2,5 @@ django-model-utils>=2.0
 # Additional requirements go here
 django-appconf==1.0.2
 requests
+stringcase
+fake-factory
