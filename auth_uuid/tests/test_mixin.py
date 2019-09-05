@@ -19,6 +19,10 @@ class RequestMockAccount:
     def get_request(self, uuid):
         return self._requests.get(uuid)
 
+    def update_mock(self, uuid, **kwargs):
+        user_request = self.get_request(uuid)
+        user_request.update(kwargs)
+
     def add_mock(self, user, is_consultant=False, **kwargs):
         response = {
             'uuid': str(user.uuid),
@@ -31,9 +35,12 @@ class RequestMockAccount:
                 [[settings.SMALL_IMAGE_SIZE, settings.SMALL_IMAGE_SIZE], faker.image_url()],
                 [[settings.MEDIUM_IMAGE_SIZE, settings.MEDIUM_IMAGE_SIZE], faker.image_url()],
                 [[settings.LARGE_IMAGE_SIZE, settings.LARGE_IMAGE_SIZE], faker.image_url()],
+                [[settings.DEFAULT_IMAGE_SIZE, settings.DEFAULT_IMAGE_SIZE], faker.image_url()],
             ],
             'userTitle': faker.word(),
             'profileUrl': faker.uri(),
+            'bioMe': faker.text(),
+            'linkedin': faker.uri(),
             'hubs': [{'_type': 'T'}] if is_consultant else [],
             'isActive': True,
             'isStaff': False,
