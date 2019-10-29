@@ -44,6 +44,7 @@ class RequestMockAccount:
             'hubs': [{'_type': 'T'}] if is_consultant else [],
             'isActive': True,
             'isStaff': False,
+            'slug': faker.slug(),
             'isSuperuser': kwargs.get('is_superuser', False),
         }
         response.update(**kwargs)
