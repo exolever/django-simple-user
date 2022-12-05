@@ -26,8 +26,7 @@ def get_user_uuid_from_token(token):
 
     try:
         sanitized_token = _sanitize_token(token)
-        
-        response = requests.get(URL_USER_DATA + sanitized_token)
+        response = requests.get(URL_USER_DATA + sanitized_token)    # NOSONAR
         assert (response.status_code == status.HTTP_200_OK)
         response_json = response.json()
 
