@@ -17,11 +17,17 @@ URL_USER_DATA = '{}{}?access_token='.format(
 )
 
 
+def _sanitize_token(token):
+    return token
+
+
 def get_user_uuid_from_token(token):
     exo_uuid = None
 
     try:
-        response = requests.get(URL_USER_DATA + token)    # noqa
+        sanitized_token = _sanitize_token(token)
+        
+        response = requests.get(URL_USER_DATA + sanitized_token)
         assert (response.status_code == status.HTTP_200_OK)
         response_json = response.json()
 
