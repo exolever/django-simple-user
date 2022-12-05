@@ -11,16 +11,17 @@ from rest_framework.authentication import BaseAuthentication, get_authorization_
 from rest_framework_jwt.settings import api_settings
 
 
+URL_USER_DATA = '{}{}?access_token='.format(
+    settings.OAUTH_EXOPASS_DOMAIN,
+    settings.OAUTH_EXOPASS_USER_URL,
+)
+
+
 def get_user_uuid_from_token(token):
     exo_uuid = None
 
-    url_user_data = '{}{}?access_token={}'.format(
-        settings.OAUTH_EXOPASS_DOMAIN,
-        settings.OAUTH_EXOPASS_USER_URL,
-        token
-    )
     try:
-        response = requests.get(url_user_data)
+        response = requests.get(URL_USER_DATA + token)    # noqa
         assert (response.status_code == status.HTTP_200_OK)
         response_json = response.json()
 
@@ -47,12 +48,14 @@ def get_jwt(request, raise_exceptions=False):
 
     if len(auth) == 1:
         if raise_exceptions:
-            msg = 'Invalid Authorization header. No credentials provided.'
-            raise exceptions.AuthenticationFailed(msg)
+            raise exceptions.AuthenticationFailed(
+                'Invalid Authorization header. No credentials provided.'
+            )
     elif len(auth) > 2:
         if raise_exceptions:
-            msg = 'Invalid Authorization header. Credentials string should not contain spaces.'
-            raise exceptions.AuthenticationFailed(msg)
+            raise exceptions.AuthenticationFailed(
+                'Invalid Authorization header. Credentials string should not contain spaces.'
+            )
 
     return auth[1].decode('utf-8')
 
@@ -104,7 +107,7 @@ class OAuth2Backend:
     supports_anonymous_user = True
     supports_inactive_user = True
 
-    def authenticate(self, request, username=None, password=None):
+    def authenticate(self, request, *args, **kwargs):
         user = None
         try:
             token = get_jwt(request)
