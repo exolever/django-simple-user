@@ -93,3 +93,32 @@ class SimpleUserManager(UserManager):
             user, _ = self.create_new_user(response)
             return user
         return AnonymousUser()
+
+    def retrieve_remote_user_data_by_exo_pass_uuid(self, exo_pass_uuid):
+        logger = logging.getLogger(app_settings.LOGGER_NAME)
+        url = settings.URL_VALIDATE_USER_EXO_PASS_UUID.format(exo_pass_uuid)
+        response = None
+        try:
+            response = requests.get(
+                url,
+                headers={'USERNAME': settings.AUTH_SECRET_KEY})
+        except Exception as err:
+            message = 'requests.Exception: {}'.format(err)
+            logger.error(message)
+            response = None
+
+        if response and response.status_code == requests.codes.ok:
+            return response.json()
+        return None
+
+    def retrieve_remote_user_by_exo_pass_uuid(self, exo_pass_uuid, retrieve_response=False):
+        user = AnonymousUser()
+        response = self.retrieve_remote_user_data_by_exo_pass_uuid(exo_pass_uuid)
+
+        if response is not None:
+            user, _ = self.create_new_user(response)
+
+        if retrieve_response:
+            return user, response
+        else:
+            return user

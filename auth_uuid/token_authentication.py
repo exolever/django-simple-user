@@ -31,6 +31,11 @@ def get_user_uuid_from_token(token):
         response_json = response.json()
 
         exo_uuid = response_json.get('exo_uuid')
+        if not exo_uuid:
+            user = get_user_model().objects.retrieve_remote_user_by_exo_pass_uuid(
+                response_json.get('id')
+            )
+            exo_uuid = user.uuid
 
     except AssertionError:
         pass
