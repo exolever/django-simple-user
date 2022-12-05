@@ -23,6 +23,8 @@ URL_VALIDATE_USER_UUID = getattr(settings, 'URL_VALIDATE_USER_UUID', '')
 
 URL_VALIDATE_USER_COOKIE = getattr(settings, 'URL_VALIDATE_USER_COOKIE', '')
 
+URL_VALIDATE_USER_EXO_PASS_UUID = getattr(settings, 'URL_VALIDATE_USER_EXO_PASS_UUID', '')
+
 LOGGER_NAME = 'auth_uuid'
 
 settings.JWT_AUTH = JWT_AUTH
