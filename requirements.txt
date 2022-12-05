@@ -4,3 +4,4 @@ django-appconf==1.0.2
 requests
 stringcase
 fake-factory
+django-rest-framework

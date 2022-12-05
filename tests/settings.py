@@ -6,6 +6,8 @@ import django
 DEBUG = True
 USE_TZ = True
 
+AUTH_USER_MODEL = 'auth_uuid.UserUUID'
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "2-genih9m92e_kaz81_i%v^d@t21hxxrfpg%&$v06yon490$_1"
 
