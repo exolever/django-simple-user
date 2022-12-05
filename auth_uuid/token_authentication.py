@@ -51,13 +51,11 @@ def get_jwt(request, raise_exceptions=False):
     if smart_text(auth[0].lower()) != auth_header_prefix:
         return None
 
-    if len(auth) == 1:
-        if raise_exceptions:
+    if len(auth) == 1 and raise_exceptions:
             raise exceptions.AuthenticationFailed(
                 'Invalid Authorization header. No credentials provided.'
             )
-    elif len(auth) > 2:
-        if raise_exceptions:
+    elif len(auth) > 2 and raise_exceptions:
             raise exceptions.AuthenticationFailed(
                 'Invalid Authorization header. Credentials string should not contain spaces.'
             )
@@ -112,7 +110,7 @@ class OAuth2Backend:
     supports_anonymous_user = True
     supports_inactive_user = True
 
-    def authenticate(self, request, *args, **kwargs):
+    def authenticate(self, request, *args, **kwargs):    # NOSONAR
         user = None
         try:
             token = get_jwt(request)
