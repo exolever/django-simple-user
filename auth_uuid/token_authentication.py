@@ -95,7 +95,7 @@ class OAuth2JSONWebTokenAuthentication(BaseAuthentication):
             user = get_user_model().objects.get(uuid=user_uuid)
 
         except get_user_model().DoesNotExist:
-            raise exceptions.AuthenticationFailed()
+            user = get_user_model().objects.retrieve_remote_user_by_exo_pass_uuid(user_uuid)
 
         except AssertionError:
             raise exceptions.AuthenticationFailed()
